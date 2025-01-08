@@ -26,7 +26,7 @@ public class AuthorController {
         try {
             return ResponseEntity.ok(authorSvc.findById(id));
         } catch (NotFoundException e) {
-            return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
 
@@ -63,6 +63,6 @@ public class AuthorController {
             return ResponseEntity.ok(authorSvc.update(id, name));
         } catch (NotFoundException  e) {
             return  new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-        } 
+        }
     }
 }
