@@ -22,47 +22,27 @@ public class AuthorController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getAuthor(@PathVariable Long id) {
-        try {
-            return ResponseEntity.ok(authorSvc.findById(id));
-        } catch (NotFoundException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<Author> getAuthor(@PathVariable Long id) throws NotFoundException {
+        return ResponseEntity.ok(authorSvc.findById(id));
     }
 
     @PostMapping
-    public ResponseEntity<?> createAuthor(@RequestBody AuthorCreateRequest request) throws AlreadyExistException {
-        try {
-            return new ResponseEntity<>(authorSvc.create(request), HttpStatus.CREATED);
-        } catch (AlreadyExistException e) {
-            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
+    public ResponseEntity<Author> createAuthor(@RequestBody AuthorCreateRequest request) throws AlreadyExistException {
+        return ResponseEntity.ok(authorSvc.create(request));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateAuthor(@PathVariable Long id, @RequestBody AuthorUpdateRequest request) {
-        try {
-            return ResponseEntity.ok(authorSvc.update(id, request));
-        } catch (NotFoundException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<Author> updateAuthor(@PathVariable Long id, @RequestBody Author request) throws NotFoundException {
+        return ResponseEntity.ok(authorSvc.update(id, request));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteAuthor(@PathVariable Long id) {
-        try {
-            return ResponseEntity.ok(authorSvc.delete(id));
-        } catch (NotFoundException e) {
-            return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<String> deleteAuthor(@PathVariable Long id) throws NotFoundException {
+        return new ResponseEntity<>(authorSvc.delete(id), HttpStatus.NO_CONTENT);
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<?> updateAuthor(@PathVariable Long id, @RequestBody String name) {
-        try {
-            return ResponseEntity.ok(authorSvc.update(id, name));
-        } catch (NotFoundException  e) {
-            return  new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<Author> updateAuthor(@PathVariable Long id, @RequestBody String name) throws NotFoundException {
+        return ResponseEntity.ok(authorSvc.update(id, name));
     }
 }

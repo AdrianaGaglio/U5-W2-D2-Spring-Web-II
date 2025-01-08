@@ -29,10 +29,7 @@ public class AuthorSvc {
     }
 
     public Author findById(Long id) throws NotFoundException {
-        if (!authorRepo.existsById(id)) {
-            throw new NotFoundException("Author not found");
-        }
-        return authorRepo.findById(id).get();
+        return authorRepo.findById(id).orElseThrow(() -> new NotFoundException("Author not found"));
     }
 
     public String delete(Author author) throws NotFoundException {
@@ -59,7 +56,7 @@ public class AuthorSvc {
         return (int) authorRepo.count();
     }
 
-    public Author update(Long id, AuthorUpdateRequest request) throws NotFoundException {
+    public Author update(Long id, Author request) throws NotFoundException {
         Author a = findById(id);
 
         BeanUtils.copyProperties(request, a);

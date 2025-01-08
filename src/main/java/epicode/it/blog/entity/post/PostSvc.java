@@ -54,12 +54,12 @@ public class PostSvc {
     }
 
     @Transactional
-    public Post update(Long id, PostUpdateRequest request) throws NotFoundException {
+    public Post update(Long id, Post request) throws NotFoundException {
         Post p = findById(id);
 
         BeanUtils.copyProperties(request, p);
 
-        Author a = authorRepo.findById(request.getAuthorId()).orElseThrow(() -> new NotFoundException("Author not found"));
+        Author a = authorRepo.findById(request.getAuthor().getId()).orElseThrow(() -> new NotFoundException("Author not found"));
         p.setAuthor(a);
 
         return postRepo.save(p);
