@@ -14,7 +14,7 @@ import java.util.List;
 public class AuthorSvc {
     private final AuthorRepo authorRepo;
 
-    public Author save(Author author) throws AlreadyExistException {
+    public Author save(Author author)  {
         Author a = findByEmail(author.getEmail());
         if (a != null) throw new AlreadyExistException("Email already exist");
         return authorRepo.save(author);
@@ -28,11 +28,11 @@ public class AuthorSvc {
         return authorRepo.findAll();
     }
 
-    public Author findById(Long id) throws NotFoundException {
+    public Author findById(Long id) {
         return authorRepo.findById(id).orElseThrow(() -> new NotFoundException("Author not found"));
     }
 
-    public String delete(Author author) throws NotFoundException {
+    public String delete(Author author) {
         Author a = findById(author.getId());
 
         authorRepo.delete(a);
@@ -40,7 +40,7 @@ public class AuthorSvc {
         return "Author deleted successfully";
     }
 
-    public String delete(Long id) throws NotFoundException {
+    public String delete(Long id)  {
         Author a = findById(id);
 
         authorRepo.delete(a);
@@ -56,7 +56,7 @@ public class AuthorSvc {
         return (int) authorRepo.count();
     }
 
-    public Author update(Long id, Author request) throws NotFoundException {
+    public Author update(Long id, Author request)  {
         Author a = findById(id);
 
         BeanUtils.copyProperties(request, a);
@@ -64,7 +64,7 @@ public class AuthorSvc {
         return authorRepo.save(a);
     }
 
-    public Author update(Long id, String name) throws NotFoundException {
+    public Author update(Long id, String name)  {
         Author a = findById(id);
 
         a.setName(name);
@@ -73,7 +73,7 @@ public class AuthorSvc {
     }
 
     @Transactional
-    public Author create(AuthorCreateRequest request) throws AlreadyExistException {
+    public Author create(AuthorCreateRequest request) {
         Author newAuthor = new Author();
 
         if (findByEmail(request.getEmail()) != null) throw new AlreadyExistException("Email already exist");

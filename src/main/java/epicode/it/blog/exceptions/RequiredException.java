@@ -1,6 +1,6 @@
 package epicode.it.blog.exceptions;
 
-public class RequiredException extends Exception {
+public class RequiredException extends RuntimeException {
 
     public RequiredException() {
         super();

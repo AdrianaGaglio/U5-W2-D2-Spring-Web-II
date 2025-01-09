@@ -10,7 +10,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import javax.swing.text.html.parser.Entity;
 
-@Controller
+@ControllerAdvice
 public class ExceptionHandlerClass extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(value = AlreadyExistException.class)

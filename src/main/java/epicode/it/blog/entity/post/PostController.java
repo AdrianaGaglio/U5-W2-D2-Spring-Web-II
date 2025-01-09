@@ -23,28 +23,28 @@ public class PostController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Post> getById(@PathVariable Long id) throws Exception {
+    public ResponseEntity<Post> getById(@PathVariable Long id)  {
         return ResponseEntity.ok(postSvc.findById(id));
     }
 
     @PostMapping
-    public ResponseEntity<Post> createPost(@RequestBody PostCreateRequest request) throws NotFoundException {
+    public ResponseEntity<Post> createPost(@RequestBody PostCreateRequest request)  {
         return new ResponseEntity<>(postSvc.create(request), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Post> updatePost(@PathVariable Long id, @RequestBody Post request) throws NotFoundException {
+    public ResponseEntity<Post> updatePost(@PathVariable Long id, @RequestBody Post request) {
         return ResponseEntity.ok(postSvc.update(id, request));
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Post> updatePost(@PathVariable Long id, @RequestBody String title) throws NotFoundException {
+    public ResponseEntity<Post> updatePost(@PathVariable Long id, @RequestBody String title)  {
             return ResponseEntity.ok(postSvc.update(id, title));
 
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<String> deletePost(@PathVariable Long id) throws NotFoundException {
+    public ResponseEntity<String> deletePost(@PathVariable Long id)  {
         return ResponseEntity.ok(postSvc.delete(id));
     }
 

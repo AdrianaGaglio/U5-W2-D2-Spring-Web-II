@@ -30,7 +30,7 @@ public class PostSvc {
         return postRepo.findAll();
     }
 
-    public Post findById(Long id) throws NotFoundException {
+    public Post findById(Long id)  {
         if (!postRepo.existsById(id)) {
             throw new NotFoundException("Post not found");
         }
@@ -38,12 +38,12 @@ public class PostSvc {
         return postRepo.findById(id).get();
     }
 
-    public void delete(Post post) throws NotFoundException {
+    public void delete(Post post) {
         Post p = findById(post.getId());
         postRepo.delete(p);
     }
 
-    public String delete(Long id) throws NotFoundException {
+    public String delete(Long id)  {
         Post p = findById(id);
         postRepo.delete(p);
         return "Post deleted successfully";
@@ -54,7 +54,7 @@ public class PostSvc {
     }
 
     @Transactional
-    public Post update(Long id, Post request) throws NotFoundException {
+    public Post update(Long id, Post request) {
         Post p = findById(id);
 
         BeanUtils.copyProperties(request, p);
@@ -65,7 +65,7 @@ public class PostSvc {
         return postRepo.save(p);
     }
 
-    public Post update(Long id, String title) throws NotFoundException {
+    public Post update(Long id, String title) {
         Post p = findById(id);
 
         p.setTitle(title);
@@ -73,7 +73,7 @@ public class PostSvc {
         return save(p);
     }
 
-    public Post update(Long id, Long authorId) throws NotFoundException {
+    public Post update(Long id, Long authorId) {
         Post p = findById(id);
 
         Author a = authorRepo.findById(authorId).orElseThrow(() -> new NotFoundException("Author not found"));
@@ -83,7 +83,7 @@ public class PostSvc {
         return save(p);
     }
 
-    public Post create(PostCreateRequest request) throws NotFoundException {
+    public Post create(PostCreateRequest request)  {
         Post newPost = new Post();
 
         BeanUtils.copyProperties(request, newPost);
